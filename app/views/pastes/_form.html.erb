@@ -1,0 +1,17 @@
+<%= form_with(model: paste, local: true) do |form| %>
+  <% if paste.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(paste.errors.count, "error") %> prohibited this paste from being saved:</h2>
+
+      <ul>
+      <% paste.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit "Create Paste", class: "btn btn-primary" %>
+  </div>
+<% end %>
