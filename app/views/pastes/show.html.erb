@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @paste.id %></h1>
+<h2><%= @paste.content %></h2>
+
 <%= link_to 'Edit', edit_paste_path(@paste) %> |
 <%= link_to 'Back', pastes_path %>
