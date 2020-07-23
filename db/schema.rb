@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_065959) do
 
   create_table "pastes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "language", limit: 10
+    t.text "title", limit: 255
     t.text "content"
     t.datetime "expired_at"
     t.datetime "created_at", null: false

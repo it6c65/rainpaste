@@ -11,21 +11,22 @@
     </div>
   <% end %>
   <div class="row m-2">
-    <div class="col-4 text-center">
+    <div class="col-3 text-center">
       <%= form.label :language, "Languages: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
-      <select id="language" name="paste[language]" class="custom-select">
-        <option value="1">ninguno</option>
-        <option value="2">c++</option>
-      </select>
+      <%= render "rouge-lexers" %>
     </div>
-    <div class="col-4 text-center">
+    <div class="col-3 text-center">
       <%= form.label :expired_at, "Expired in: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
       <select id="expired" name="paste[expired_at]" class="custom-select">
         <option value="1">1 hour</option>
         <option value="2">2 hours</option>
       </select>
     </div>
-    <div class="col-4 text-center" style="margin-top:1.7rem;">
+    <div class="col-4 text-center">
+      <%= form.label :title, "Optional Name: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
+      <%= form.text_field :title, class: "form-control", placeholder: "Paste name" %>
+    </div>
+    <div class="col-2 text-center" style="margin-top:1.7rem;">
       <%= form.submit "Create Paste", class: "btn btn-primary float-right" %>
     </div>
   </div>

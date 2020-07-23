@@ -1,7 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @paste.id %></h1>
-<h2><%= @paste.content %></h2>
-
+<h2><%= @paste.title %></h2>
+<div class="highlight github">
+  <pre>
+    <%= render "pasting", language: :ruby %>
+  </pre>
+</div>
 <%= link_to 'Edit', edit_paste_path(@paste) %> |
 <%= link_to 'Back', pastes_path %>
