@@ -12,8 +12,11 @@
   <% end %>
   <div class="row m-2">
     <div class="col-3 text-center">
-      <%= form.label :language, "Languages: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
-      <%= render "rouge-lexers" %>
+      <%= form.label :language, "Language: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
+      <%= render "rouge-lexers" if @paste.language.nil? %>
+      <% unless @paste.language.nil? %>
+        <%= form.text_field :language, value: @paste.language.capitalize, class: "form-control font-weight-bold", disabled: true %>
+      <% end %>
     </div>
     <div class="col-3 text-center">
       <%= form.label :expired_at, "Expired in: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>

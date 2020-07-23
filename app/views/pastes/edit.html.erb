@@ -2,5 +2,7 @@
 
 <%= render 'form', paste: @paste %>
 
-<%= link_to 'Show', @paste %> |
-<%= link_to 'Back', pastes_path %>
+<div class="m-1">
+    <%= link_to 'Show', @paste, class: 'btn btn-warning' %> |
+    <%= link_to 'Back', pastes_path, class: 'btn btn-secondary' %>
+</div>

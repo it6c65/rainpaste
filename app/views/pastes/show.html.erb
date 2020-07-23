@@ -1,11 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @paste.id %></h1>
-<h2><%= @paste.title %></h2>
-<div class="highlight github">
-  <pre>
-    <%= render "pasting", language: :ruby %>
-  </pre>
+<div class="card">
+  <div class="card-body">
+    <div class="card-title"><h1><%= @paste.title %></h1></div>
+    <div class="card-subtitle mb-2 text-muted">
+      Note #<%= @paste.id %>
+    </div>
+    <div class="highlight github">
+      <pre>
+        <%= render "pasting", language: @paste.language.to_sym %>
+      </pre>
+    </div>
+<%= link_to 'Edit', edit_paste_path(@paste), class: 'btn btn-info' %> |
+<%= link_to 'Back', pastes_path, class: 'btn btn-secondary' %>
+  </div>
 </div>
-<%= link_to 'Edit', edit_paste_path(@paste) %> |
-<%= link_to 'Back', pastes_path %>
+
