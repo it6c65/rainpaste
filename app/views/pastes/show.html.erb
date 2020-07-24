@@ -2,14 +2,26 @@
 
 <div class="card">
   <div class="card-body">
-    <div class="card-title"><h1><%= @paste.title %></h1></div>
+    <div class="card-title">
+      <h1><span class="font-weight-bold"><%= @paste.title %></span>
+      <div class="float-right d-flex flex-row">
+        <h2 class="mx-2 font-weight-bold">Language: </h2>
+        <span class="badge badge-dark"><%= @paste.language.split("_").join(" ").capitalize %></span>
+      </div>
+      </h1>
+    </div>
     <div class="card-subtitle mb-2 text-muted">
-      Note #<%= @paste.id %>
+      <h3>Note #<%= @paste.id %></h3>
+      <h4>
+      Expired in: <%= ((@paste.expired_at - @paste.created_at) / 60).round %> Minutes
+      </h4>
     </div>
     <div class="highlight github">
-      <pre>
-        <%= render "pasting", language: @paste.language.to_sym %>
-      </pre>
+      <div class="card border border-info my-2 px-3">
+        <pre>
+          <%= render "pasting", language: @paste.language.to_sym %>
+        </pre>
+      </div>
     </div>
 <%= link_to 'Edit', edit_paste_path(@paste), class: 'btn btn-info' %> |
 <%= link_to 'Back', pastes_path, class: 'btn btn-secondary' %>

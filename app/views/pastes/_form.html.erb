@@ -20,10 +20,11 @@
     </div>
     <div class="col-3 text-center">
       <%= form.label :expired_at, "Expired in: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
-      <select id="expired" name="paste[expired_at]" class="custom-select">
-        <option value="1">1 hour</option>
-        <option value="2">2 hours</option>
-      </select>
+      <%= render "expired" if @paste.expired_at.nil? %>
+      <% unless @paste.expired_at.nil? %>
+        <% current_expired = ((@paste.expired_at - @paste.created_at) / 60).round %>
+        <%= form.text_field :expired_at, value: current_expired.to_s + " Minutes" , class: "form-control font-weight-bold", disabled: true %>
+      <% end %>
     </div>
     <div class="col-4 text-center">
       <%= form.label :title, "Optional Name: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
