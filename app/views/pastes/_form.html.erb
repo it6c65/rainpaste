@@ -13,17 +13,16 @@
   <div class="row m-2">
     <div class="col-3 text-center">
       <%= form.label :language, "Language: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
-      <%= render "rouge-lexers" if @paste.language.nil? %>
-      <% unless @paste.language.nil? %>
-        <%= form.text_field :language, value: @paste.language.capitalize, class: "form-control font-weight-bold", disabled: true %>
+      <%= render "rouge-lexers" if @paste.lang? %>
+      <% unless @paste.lang? %>
+        <%= form.text_field :language, value: @paste.lang_styled, class: "form-control font-weight-bold", disabled: true %>
       <% end %>
     </div>
     <div class="col-3 text-center">
       <%= form.label :expired_at, "Expired in: ", style: "margin-right:0.4rem", class: "font-weight-bold" %>
-      <%= render "expired" if @paste.expired_at.nil? %>
-      <% unless @paste.expired_at.nil? %>
-        <% current_expired = ((@paste.expired_at - @paste.created_at) / 60).round %>
-        <%= form.text_field :expired_at, value: current_expired.to_s + " Minutes" , class: "form-control font-weight-bold", disabled: true %>
+      <%= render "expired" if @paste.expired? %>
+      <% unless @paste.expired? %>
+        <%= form.text_field :expired_at, value: @paste.counter.to_s + " Minutes" , class: "form-control font-weight-bold", disabled: true %>
       <% end %>
     </div>
     <div class="col-4 text-center">

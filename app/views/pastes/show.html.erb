@@ -6,14 +6,14 @@
       <h1><span class="font-weight-bold"><%= @paste.title %></span>
       <div class="float-right d-flex flex-row">
         <h2 class="mx-2 font-weight-bold">Language: </h2>
-        <span class="badge badge-dark"><%= @paste.language.split("_").join(" ").capitalize %></span>
+        <span class="badge badge-dark"><%= @paste.lang_styled %></span>
       </div>
       </h1>
     </div>
     <div class="card-subtitle mb-2 text-muted">
       <h3>Note #<%= @paste.id %></h3>
       <h4>
-      Expired in: <%= ((@paste.expired_at - @paste.created_at) / 60).round %> Minutes
+      Expired in: <%= @paste.counter %> Minutes
       </h4>
     </div>
     <div class="highlight github">

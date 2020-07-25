@@ -69,8 +69,6 @@ class PastesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def paste_params
-      time = Time.now
-      params[:paste][:expired_at] = time + params[:paste][:expired_at].to_i.minutes
       params.require(:paste).permit(:title,:content,:language,:expired_at)
     end
 end
