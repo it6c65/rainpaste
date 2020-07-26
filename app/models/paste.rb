@@ -11,7 +11,4 @@ class Paste < ApplicationRecord
   def lang?
     language.nil?
   end
-  before_save do
-    expired_at = expired_at.to_i.minutes.from_now
-  end
 end

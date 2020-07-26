@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.5'
 gem 'jquery-rails'
 gem 'rouge-rails', '~> 0.2.1'
+gem 'sucker_punch', '~> 2.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

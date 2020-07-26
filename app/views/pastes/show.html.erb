@@ -1,4 +1,11 @@
-<p id="notice"><%= notice %></p>
+<% unless notice.nil? %>
+<div id="notice" class="alert alert-warning alert-dismissible fade show my-2">
+    <%= notice %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<% end %>
 
 <div class="card">
   <div class="card-body">

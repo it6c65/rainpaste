@@ -5,6 +5,10 @@ class PastesController < ApplicationController
   # GET /pastes.json
   def index
     @pastes = Paste.all
+    @pastes.each do |paste|
+      # Task to deleted notes
+      ExpiredsJob.perform_async(paste.id)
+    end
   end
 
   # GET /pastes/1
@@ -64,11 +68,16 @@ class PastesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_paste
+      begin
       @paste = Paste.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to pastes_url, notice: 'Paste has been deleted!'
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def paste_params
+      params[:paste][:expired_at] = params[:paste][:expired_at].to_i.minutes.from_now
       params.require(:paste).permit(:title,:content,:language,:expired_at)
     end
 end
