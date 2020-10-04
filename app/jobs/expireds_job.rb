@@ -11,8 +11,3 @@ class ExpiredsJob
   end
 end
 
-Paste.all.each do |paste|
-  ExpiredsJob.perform_async(paste.id)
-  SuckerPunch.logger = Logger.new('sucker_punch.log')
-  SuckerPunch.logger
-end
