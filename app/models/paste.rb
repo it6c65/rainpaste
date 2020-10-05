@@ -11,4 +11,7 @@ class Paste < ApplicationRecord
   def lang?
     language.nil?
   end
+
+  validates :content, presence: true
+  validates :title, length: { maximum: 40 }
 end

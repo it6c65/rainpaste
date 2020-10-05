@@ -1,5 +1,6 @@
 class PastesController < ApplicationController
   before_action :set_paste, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_login, only: [:new,:create]
 
   # GET /pastes
   # GET /pastes.json
