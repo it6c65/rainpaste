@@ -2,3 +2,12 @@
 @import "_variables";
 @import "bootstrap";
 @import "_bootswatch";
+
+body {
+  height: 100%;
+  background-image: image_url("redclip.svg");
+}
+
+.trans-light {
+  background-color: rgba($light, 0.9);
+}

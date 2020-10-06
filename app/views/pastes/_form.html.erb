@@ -33,5 +33,7 @@
       <%= form.submit "Create Paste", class: "btn btn-primary float-right" %>
     </div>
   </div>
-  <%= form.text_area :content, size: "24x6", class: "form-control" %>
+  <div class="form-group mx-2 px-3">
+    <%= form.text_area :content, size: "24x16", class: "form-control" %>
+  </div>
 <% end %>

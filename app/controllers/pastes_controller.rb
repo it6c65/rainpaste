@@ -1,6 +1,6 @@
 class PastesController < ApplicationController
   before_action :set_paste, only: [:show, :edit, :update, :destroy]
-  skip_before_action :require_login, only: [:new,:create]
+  skip_before_action :require_login, only: [:new,:create, :show]
 
   # GET /pastes
   # GET /pastes.json
@@ -33,7 +33,7 @@ class PastesController < ApplicationController
 
     respond_to do |format|
       if @paste.save
-        format.html { redirect_to @paste, notice: 'Paste was successfully created.' }
+        format.html { redirect_to paste_path(@paste.id) , notice: 'Paste was successfully created.' }
         format.json { render :show, status: :created, location: @paste }
       else
         format.html { render :new }

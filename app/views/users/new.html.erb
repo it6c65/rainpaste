@@ -1,5 +1,9 @@
-<h1 class="text-center">Register</h1>
-
-<%= render 'form', user: @user %>
-
-<%= link_to 'Back', root_path, class: "btn btn-secondary" %>
+<div class="row">
+  <div class="col-4 offset-md-4">
+    <div class="card trans-light">
+        <h1 class="text-center font-weight-bold">Register</h1>
+        <%= render 'form', user: @user %>
+        <%= link_to 'Back', root_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>
