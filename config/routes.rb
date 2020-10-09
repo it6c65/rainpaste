@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new', as: :signup
   get '/login', to: 'sessions#new', as: :login
   get '/logout', to: 'sessions#destroy', as: :logout
+  get '/create', to: 'pastes#new'
+  get '/:hashnote', to: 'pastes#search'
   root :to => 'pastes#index', constraints: UserRequired
   root :to => 'home#index'
 end

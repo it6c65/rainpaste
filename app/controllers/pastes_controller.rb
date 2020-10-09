@@ -1,13 +1,13 @@
 class PastesController < ApplicationController
   before_action :set_paste, only: [:show, :edit, :update, :destroy]
-  skip_before_action :require_login, only: [:new,:create, :show]
+  skip_before_action :require_login, only: [:new,:create, :show, :search]
 
   # GET /pastes
   # GET /pastes.json
   def index
     @pastes = Paste.all
     @pastes.each do |paste|
-      # Task to deleted notes
+      # Task to all deleted notes
       ExpiredsJob.perform_async(paste.id)
     end
   end
@@ -15,6 +15,10 @@ class PastesController < ApplicationController
   # GET /pastes/1
   # GET /pastes/1.json
   def show
+    unless current_user
+      # Task to deleted notes the current paste
+      ExpiredsJob.new.perform(@paste.id)
+    end
   end
 
   # GET /pastes/new
@@ -33,7 +37,11 @@ class PastesController < ApplicationController
 
     respond_to do |format|
       if @paste.save
-        format.html { redirect_to paste_path(@paste.id) , notice: 'Paste was successfully created.' }
+        unless current_user
+          format.html { redirect_to @paste, notice: 'Paste was successfully created.' }
+        else
+          format.html { redirect_to root_path , notice: 'Paste was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @paste }
       else
         format.html { render :new }
@@ -66,6 +74,11 @@ class PastesController < ApplicationController
     end
   end
 
+  def search
+    @paste = Paste.find_by(hashnote: params[:hashnote])
+    redirect_to @paste
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_paste
@@ -79,6 +92,7 @@ class PastesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def paste_params
       params[:paste][:expired_at] = params[:paste][:expired_at].to_i.minutes.from_now
-      params.require(:paste).permit(:title,:content,:language,:expired_at)
+      params[:paste][:hashnote] = Digest::SHA1.hexdigest(params[:paste][:content])
+      params.require(:paste).permit(:title,:content,:language,:expired_at,:hashnote)
     end
 end
