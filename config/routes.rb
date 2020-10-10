@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new', as: :login
   get '/logout', to: 'sessions#destroy', as: :logout
   get '/create', to: 'pastes#new'
-  get '/:hashnote', to: 'pastes#search'
+  get '/:hashnote', to: 'pastes#show', as: :hashpublic
   root :to => 'pastes#index', constraints: UserRequired
   root :to => 'home#index'
 end

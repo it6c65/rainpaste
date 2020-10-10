@@ -1,6 +1,6 @@
 class PastesController < ApplicationController
-  before_action :set_paste, only: [:show, :edit, :update, :destroy]
-  skip_before_action :require_login, only: [:new,:create, :show, :search]
+  before_action :set_paste, only: [:edit, :update, :destroy]
+  skip_before_action :require_login, only: [:new,:create, :show]
 
   # GET /pastes
   # GET /pastes.json
@@ -12,12 +12,17 @@ class PastesController < ApplicationController
     end
   end
 
-  # GET /pastes/1
-  # GET /pastes/1.json
+  # GET /pastes/:hashcode
   def show
+    @paste = Paste.find_by(hashnote: params[:hashnote])
     unless current_user
-      # Task to deleted notes the current paste
-      ExpiredsJob.new.perform(@paste.id)
+      if @paste.nil?
+        flash[:notice] = "Paste has been deleted!"
+        redirect_to root_path
+      else
+        # Task to deleted notes the current paste
+        ExpiredsJob.new.perform(@paste.id)
+      end
     end
   end
 
@@ -38,7 +43,7 @@ class PastesController < ApplicationController
     respond_to do |format|
       if @paste.save
         unless current_user
-          format.html { redirect_to @paste, notice: 'Paste was successfully created.' }
+          format.html { redirect_to hashpublic_path(@paste.hashnote), notice: 'Paste was successfully created.' }
         else
           format.html { redirect_to root_path , notice: 'Paste was successfully created.' }
         end
@@ -74,11 +79,6 @@ class PastesController < ApplicationController
     end
   end
 
-  def search
-    @paste = Paste.find_by(hashnote: params[:hashnote])
-    redirect_to @paste
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_paste
@@ -92,7 +92,7 @@ class PastesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def paste_params
       params[:paste][:expired_at] = params[:paste][:expired_at].to_i.minutes.from_now
-      params[:paste][:hashnote] = Digest::SHA1.hexdigest(params[:paste][:content])
+      params[:paste][:hashnote] = Digest::SHA1.hexdigest params[:paste][:content]
       params.require(:paste).permit(:title,:content,:language,:expired_at,:hashnote)
     end
 end
