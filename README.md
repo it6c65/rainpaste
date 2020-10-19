@@ -1,6 +1,6 @@
 # RainPaste
 
-![rainpaste-logo](./app/assets/images/gota-background.png)
+![rainpaste-logo](./app/assets/images/rainpaste-logo.png)
 
 This project is a pastebin clone made in Rails, the objetive is do something easy to maintain and extend.
 
